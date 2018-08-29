@@ -9,33 +9,25 @@ class Backpack
     @items
   end
 
-  def prepare
-    # set up local variables used by rest of prepare method
-    conditions = @attributes[:weather]
-    day_of_week = @attributes[:day_of_week]
-
-    # Ensure appropriate clothing is added to backpack
+  def outfit(conditions)
+    @items << 'pants'
+    @items << 'shirt'
     if conditions == 'rainy'
-      @items << 'pants'
-      @items << 'shirt'
       @items << 'umbrella'
     elsif conditions == 'cold'
-      @items << 'pants'
-      @items << 'shirt'
       @items << 'jacket'
-    else
-      @items << 'pants'
-      @items << 'shirt'
     end
 
-    # Ensure gym shoes are added to backpack if it's a gym day
-    # Gotta get to the gym on Mondays and Thursdays.
+  end
+
+  def shoes(day_of_week)
     if day_of_week == 'monday' || day_of_week == 'thursday'
       #add gym shoes to items
       @items << 'gym shoes'
     end
+  end
 
-    # Bring a packed lunch on all weekdays
+  def meals(day_of_week)
     if day_of_week != 'saturday' && day_of_week != 'sunday'
       @items << 'packed lunch'
     elsif false
@@ -43,6 +35,25 @@ class Backpack
       @items << 'snacks'
     end
   end
+
+
+  def prepare
+    # set up local variables used by rest of prepare method
+    conditions = @attributes[:weather]
+    day_of_week = @attributes[:day_of_week]
+
+    # Ensure appropriate clothing is added to backpack
+
+    outfit(conditions)
+    shoes(day_of_week)
+    meals(day_of_week)
+  end
+    # Ensure gym shoes are added to backpack if it's a gym day
+    # Gotta get to the gym on Mondays and Thursdays.
+
+
+    # Bring a packed lunch on all weekdays
+
 
   # Prints a summary packing list for Melinda's backpack
   def packing_list
@@ -56,5 +67,4 @@ class Backpack
     end
     output.join("\n")
   end
-
 end
